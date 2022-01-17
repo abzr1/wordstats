@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Wordstats.vercel.app</title>
+
+        <link rel="icon" href="/favicon.png" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/alpinejs" defer></script>
+
+        <style>
+            ::-webkit-scrollbar {
+                width: 0.9375rem;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                border: 0.3125rem solid rgba(0, 0, 0, 0);
+                background-clip: padding-box;
+                border-radius: 1000rem;
+                background-color: #06b6d4;
+            }
+
+            ::selection {
+                background: #155e75;
+            }
+
+            body {
+                font-family: 'JetBrains Mono', sans-serif;
+            }
+
+            th,
+            td {
+                padding: 0.3125rem 0.625rem;
+            }
+        </style>
+    </head>
+
+    <body class="bg-slate-900 text-white">
+        <main x-data="wordstats" class="ml-auto mr-auto text-center">
+            <h1 class="my-16 text-xl font-bold text-cyan-400">
+                Wordstats.vercel.app
+            </h1>
+
+            <div class="my-10 divide-x-2 divide-cyan-900">
+                <span class="pl-2 py-2">
+                    <span
+                        x-text="charCount"
+                        class="font-bold text-cyan-400"
+                    ></span>
+                    characters
+                </span>
+
+                <span class="pl-2 py-2">
+                    <span
+                        x-text="wordCount"
+                        class="font-bold text-cyan-400"
+                    ></span>
+                    words
+                </span>
+
+                <span class="pl-2 py-2">
+                    <span
+                        x-text="sentenceCount"
+                        class="font-bold text-cyan-400"
+                    ></span>
+                    sentences
+                </span>
+
+                <span class="pl-2 py-2">
+                    <span
+                        x-text="lineCount"
+                        class="font-bold text-cyan-400"
+                    ></span>
+                    lines
+                </span>
+            </div>
+
+            <textarea
+                x-model="userInput"
+                class="outline-0 h-96 w-1/2 p-4 bg-transparent border-2 border-gray-500 focus:border-cyan-400 rounded-lg resize-none"
+            ></textarea>
+
+            <template x-if="userInput">
+                <table class="ml-auto mr-auto my-8">
+                    <thead>
+                        <tr>
+                            <th>Word</th>
+                            <th>Occurrences</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template
+                            x-for="[word, stat] in Object.entries(wordStats)"
+                        >
+                            <tr>
+                                <td x-text="word"></td>
+                                <td x-text="stat"></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+
+            <footer class="ml-auto mr-auto text-center my-8">
+                Built by
+                <a
+                    class="underline hover:no-underline text-cyan-400"
+                    href="https://www.aryanbeezadhur.com"
+                    >Aryan Beezadhur</a
+                >
+            </footer>
+        </main>
+
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('wordstats', () => ({
+                    userInput: '',
+                    get charCount() {
+                        return [...this.userInput].length // .split() is not unicode compliant, see https://stackoverflow.com/a/34717402
+                    },
+                    get wordCount() {
+                        if (!this.userInput) {
+                            return 0
+                        } else {
+                            let splitInput = this.userInput.split(' ')
+                            let validWords = splitInput.filter(
+                                (string) => string !== ''
+                            )
+
+                            return validWords.length
+                        }
+                    },
+                    get sentenceCount() {
+                        let sentences = this.userInput
+                            .replaceAll('...', '.')
+                            .replaceAll('!', '.')
+                            .replaceAll('?', '.')
+                            .split('.')
+
+                        return sentences.length - 1
+                    },
+                    get lineCount() {
+                        if (this.userInput === '') {
+                            return 0
+                        } else {
+                            let lines = this.userInput.split('\n')
+
+                            return lines.length
+                        }
+                    },
+                    get wordStats() {
+                        let splitInput = this.userInput
+                            .replaceAll('\n', ' ')
+                            .split(' ')
+
+                        wordStats = {}
+
+                        splitInput.map((string) => {
+                            const currentString = string.toLowerCase()
+
+                            if (currentString === '') {
+                                // continue
+                            } else if (!wordStats[currentString]) {
+                                wordStats[currentString] = 1
+                            } else {
+                                wordStats[currentString]++
+                            }
+                        })
+
+                        return wordStats
+                    }
+                }))
+            })
+        </script>
+    </body>
+</html>
