@@ -82,10 +82,10 @@
 
                 <span class="pl-2 py-2">
                     <span
-                        x-text="lineCount"
+                        x-text="paragraphCount"
                         class="font-bold text-cyan-400"
                     ></span>
-                    lines
+                    paragraphs
                 </span>
             </div>
 
@@ -134,50 +134,43 @@
                         return [...this.userInput].length // .split() is not unicode compliant, see https://stackoverflow.com/a/34717402
                     },
                     get wordCount() {
-                        if (!this.userInput) {
-                            return 0
-                        } else {
-                            let splitInput = this.userInput
-                                .replace(/\W/g, ' ') // Remove non-letter characters
-                                .split(' ')
-                            let validWords = splitInput.filter(
-                                (string) => string !== ''
-                            )
+                        let splitInput = this.userInput
+                            .replace(/\W/g, ' ')
+                            .split(' ')
+                        let validWords = splitInput.filter(
+                            (string) => string !== ''
+                        )
 
-                            return validWords.length
-                        }
+                        return validWords.length
                     },
                     get sentenceCount() {
                         let sentences = this.userInput
                             .replaceAll('!', '.')
                             .replaceAll('?', '.')
                             .split('.')
-                            .filter((string) => string !== '') // Remove empty sentences
+                            .filter((string) => string !== '')
 
                         return sentences.length
                     },
-                    get lineCount() {
-                        if (this.userInput === '') {
-                            return 0
-                        } else {
-                            let lines = this.userInput.split('\n')
+                    get paragraphCount() {
+                        let lines = this.userInput
+                            .split('\n')
+                            .filter((string) => string !== '')
 
-                            return lines.length
-                        }
+                        return lines.length
                     },
                     get wordStats() {
                         let splitInput = this.userInput
-                            .replace(/\W/g, ' ') // Remove non-letter characters
+                            .replace(/\W/g, ' ')
                             .split(' ')
+                            .filter((string) => string !== '')
 
                         wordStats = {}
 
                         splitInput.map((string) => {
                             const currentString = string.toLowerCase()
 
-                            if (currentString === '') {
-                                // continue
-                            } else if (!wordStats[currentString]) {
+                            if (!wordStats[currentString]) {
                                 wordStats[currentString] = 1
                             } else {
                                 wordStats[currentString]++
