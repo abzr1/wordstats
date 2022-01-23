@@ -137,7 +137,9 @@
                         if (!this.userInput) {
                             return 0
                         } else {
-                            let splitInput = this.userInput.split(' ')
+                            let splitInput = this.userInput
+                                .replace(/\W/g, ' ') // Remove non-letter characters
+                                .split(' ')
                             let validWords = splitInput.filter(
                                 (string) => string !== ''
                             )
@@ -147,12 +149,12 @@
                     },
                     get sentenceCount() {
                         let sentences = this.userInput
-                            .replaceAll('...', '.')
                             .replaceAll('!', '.')
                             .replaceAll('?', '.')
                             .split('.')
+                            .filter((string) => string !== '') // Remove empty sentences
 
-                        return sentences.length - 1
+                        return sentences.length
                     },
                     get lineCount() {
                         if (this.userInput === '') {
@@ -165,7 +167,7 @@
                     },
                     get wordStats() {
                         let splitInput = this.userInput
-                            .replaceAll('\n', ' ')
+                            .replace(/\W/g, ' ') // Remove non-letter characters
                             .split(' ')
 
                         wordStats = {}
