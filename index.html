@@ -41,36 +41,44 @@
 
 <body x-data="wordstats" class="container mx-auto text-white bg-slate-900">
     <main class="text-center">
-        <header>
-            <h1 class="my-16 text-xl font-bold text-cyan-400">
+        <header class="mt-16 mb-12">
+            <h1 class="text-5xl font-bold text-cyan-400">
                 Wordstats
             </h1>
         </header>
 
+        <aside>
+            Built by
+
+            <a class="hover:underline text-cyan-400" href="https://www.aryanbeezadhur.com">
+                Aryan Beezadhur
+            </a>
+        </aside>
+
         <div class="my-10 divide-x-2 divide-cyan-900">
-            <span class="py-2 pl-2">
+            <span class="py-2 px-2">
                 <span x-text="charCount" class="font-bold text-cyan-400"></span>
                 characters
             </span>
 
-            <span class="py-2 pl-2">
+            <span class="py-2 px-2">
                 <span x-text="wordCount" class="font-bold text-cyan-400"></span>
                 words
             </span>
 
-            <span class="py-2 pl-2">
+            <span class="py-2 px-2">
                 <span x-text="sentenceCount" class="font-bold text-cyan-400"></span>
                 sentences
             </span>
 
-            <span class="py-2 pl-2">
+            <span class="py-2 px-2">
                 <span x-text="lineCount" class="font-bold text-cyan-400"></span>
                 lines
             </span>
         </div>
 
         <textarea x-model="userInput"
-            class="w-1/2 p-4 transition bg-transparent border-2 border-gray-400 rounded-lg resize-none outline-0 h-96 focus:border-cyan-400"></textarea>
+            class="md:w-1/2 p-4 transition bg-transparent border-2 border-gray-400 rounded-lg resize-none outline-0 h-96 focus:border-cyan-400"></textarea>
 
         <template x-if="userInput">
             <table class="w-1/2 mt-10 ml-auto mr-auto overflow-hidden rounded">
@@ -96,14 +104,6 @@
             <div x-ref="chart"></div>
         </template>
     </main>
-
-    <footer class="my-8 text-center">
-        Built by
-
-        <a class="underline hover:no-underline text-cyan-400" href="https://www.aryanbeezadhur.com">
-            Aryan Beezadhur
-        </a>
-    </footer>
 
     <script src="/script.js"></script>
 </body>
