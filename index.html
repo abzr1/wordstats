@@ -13,9 +13,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
 
-    <script src="https://unpkg.com/alpinejs@3.8.1/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.9.6/dist/cdn.min.js" defer></script>
 
     <style>
         ::-webkit-scrollbar {
@@ -34,21 +34,18 @@
         }
 
         body {
-            font-family: 'JetBrains Mono', sans-serif;
-        }
-
-        th,
-        td {
-            padding: 0.3125rem 0.625rem;
+            font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
 
-<body class="text-white bg-slate-900">
-    <main x-data="wordstats" class="ml-auto mr-auto text-center">
-        <h1 class="my-16 text-xl font-bold text-cyan-400">
-            Wordstats
-        </h1>
+<body x-data="wordstats" class="container mx-auto text-white bg-slate-900">
+    <main class="text-center">
+        <header>
+            <h1 class="my-16 text-xl font-bold text-cyan-400">
+                Wordstats
+            </h1>
+        </header>
 
         <div class="my-10 divide-x-2 divide-cyan-900">
             <span class="py-2 pl-2">
@@ -67,97 +64,48 @@
             </span>
 
             <span class="py-2 pl-2">
-                <span x-text="paragraphCount" class="font-bold text-cyan-400"></span>
-                paragraphs
+                <span x-text="lineCount" class="font-bold text-cyan-400"></span>
+                lines
             </span>
         </div>
 
         <textarea x-model="userInput"
-            class="w-1/2 p-4 bg-transparent border-2 border-gray-500 rounded-lg resize-none outline-0 h-96 focus:border-cyan-400"></textarea>
+            class="w-1/2 p-4 transition bg-transparent border-2 border-gray-400 rounded-lg resize-none outline-0 h-96 focus:border-cyan-400"></textarea>
 
         <template x-if="userInput">
-            <table class="my-8 ml-auto mr-auto">
+            <table class="w-1/2 mt-10 ml-auto mr-auto overflow-hidden rounded">
                 <thead>
                     <tr>
-                        <th>Word</th>
-                        <th>Count</th>
+                        <th class="w-1/2 p-2 border-2 border-gray-400">Word</th>
+                        <th class="w-1/2 p-2 border-2 border-gray-400">Count</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <template x-for="[word, stat] in Object.entries(wordStats)">
+                    <template x-for="[word, stat] in wordStats">
                         <tr>
-                            <td x-text="word"></td>
-                            <td x-text="stat"></td>
+                            <td x-text="word" class="w-1/2 p-2 border-2 border-gray-400"></td>
+                            <td x-text="stat" class="w-1/2 p-2 border-2 border-gray-400"></td>
                         </tr>
                     </template>
                 </tbody>
             </table>
         </template>
 
-        <footer class="my-8 ml-auto mr-auto text-center">
-            Built by
-            <a class="underline hover:no-underline text-cyan-400" href="https://www.aryanbeezadhur.com">Aryan
-                Beezadhur</a>
-        </footer>
+        <template x-if="userInput">
+            <div x-ref="chart"></div>
+        </template>
     </main>
 
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('wordstats', () => ({
-                userInput: '',
-                get charCount() {
-                    return [...this.userInput].length // .split() is not unicode compliant, see https://stackoverflow.com/a/34717402
-                },
-                get wordCount() {
-                    let splitInput = this.userInput
-                        .replace(/\W/g, ' ')
-                        .split(' ')
-                    let validWords = splitInput.filter(
-                        (string) => string !== ''
-                    )
+    <footer class="my-8 text-center">
+        Built by
 
-                    return validWords.length
-                },
-                get sentenceCount() {
-                    let sentences = this.userInput
-                        .replaceAll('!', '.')
-                        .replaceAll('?', '.')
-                        .split('.')
-                        .filter((string) => string !== '')
+        <a class="underline hover:no-underline text-cyan-400" href="https://www.aryanbeezadhur.com">
+            Aryan Beezadhur
+        </a>
+    </footer>
 
-                    return sentences.length
-                },
-                get paragraphCount() {
-                    let lines = this.userInput
-                        .split('\n')
-                        .filter((string) => string !== '')
-
-                    return lines.length
-                },
-                get wordStats() {
-                    let splitInput = this.userInput
-                        .replace(/\W/g, ' ')
-                        .split(' ')
-                        .filter((string) => string !== '')
-
-                    wordStats = {}
-
-                    splitInput.map((string) => {
-                        const currentString = string.toLowerCase()
-
-                        if (!wordStats[currentString]) {
-                            wordStats[currentString] = 1
-                        } else {
-                            wordStats[currentString]++
-                        }
-                    })
-
-                    return wordStats
-                }
-            }))
-        })
-    </script>
+    <script src="/script.js"></script>
 </body>
 
 </html>
