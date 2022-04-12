@@ -9,7 +9,7 @@
         "url": "https://www.aryanbeezadhur.com"
     },
     "scripts": {
-        "dev:tailwindcss": "tailwindcss -i ./assets/input.css -o ./assets/output.css --watch",
+        "dev:tailwind": "tailwindcss -i ./assets/input.css -o ./assets/output.css --watch",
         "dev:serve": "serve"
     },
     "devDependencies": {
