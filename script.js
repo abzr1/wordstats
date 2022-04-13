@@ -18,7 +18,8 @@ document.addEventListener('alpine:init', () => {
         },
         get sentenceCount() {
             let sentences = this.userInput
-                .replace(/[.!?\r\n]/g, '')
+                .replaceAll(' ', '')
+                .replace(/[.!?\r\n]/g, ' ')
                 .split(' ')
                 .filter((char) => char !== '')
 
