@@ -24,12 +24,12 @@ document.addEventListener('alpine:init', () => {
 
             return sentences.length
         },
-        get lineCount() {
-            let lines = this.userInput
+        get paragraphCount() {
+            let paragraphs = this.userInput
                 .split(/[\r\n]/g)
                 .filter((str) => str !== '')
 
-            return lines.length
+            return paragraphs.length
         },
         get wordStats() {
             const words = this.splitToWords(this.userInput)
