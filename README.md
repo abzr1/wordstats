@@ -1,5 +1,5 @@
 # [Wordstats](https://wordstats.vercel.app)
 
-A web tool that displays text stats, built with [Alpine.js](https://alpinejs.dev) and [TailwindCSS](https://tailwindcss.com)
+A web tool that displays text stats, built with [Alpine.js](https://alpinejs.dev) and [TailwindCSS](https://tailwindcss.com).
 
-Deployed at [wordstats.vercel.app](https://wordstats.vercel.app)
+Deployed with [wordstats.vercel.app](https://wordstats.vercel.app).
