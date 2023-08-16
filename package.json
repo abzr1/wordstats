@@ -10,7 +10,7 @@
         "css": "npx tailwindcss -i ./public/input.css -o ./public/output.css --watch"
     },
     "dependencies": {
-        "@next/font": "13.1.6",
+        "@next/font": "^13.4.16",
         "eslint": "8.32.0",
         "eslint-config-next": "13.1.6",
         "next": "13.1.6",
