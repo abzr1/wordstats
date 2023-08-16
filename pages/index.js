@@ -32,60 +32,53 @@ export default function Home() {
     }
 
     return (
-        <div className="container mx-auto text-center">
-            <header className="mt-16 mb-12">
-                <h1 className="text-5xl font-medium border-b-2 border-cyan-400 inline">
-                    wordstats
-                </h1>
-            </header>
+        <div className="grid grid-cols-[1fr_3fr]">
+            <div className="h-screen border-r-[3px] border-gray-800 flex justify-center items-center">
+                <div className="h-4/5">
+                    <header>
+                        <h1 className="font-display text-5xl border-b-[3px] border-sky-500 select-none">
+                            Wordstats
+                        </h1>
+                    </header>
 
-            <aside>
-                Built by{' '}
-                <a
-                    className="underline hover:opacity-70 transition text-cyan-400"
-                    href="https://www.aryanbeezadhur.com"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    Aryan Beezadhur
-                </a>
-            </aside>
+                    <div className="mt-12 text-lg">
+                        <span className="text-sky-500 font-display">
+                            {charCount}
+                        </span>{' '}
+                        {charCount === 1 ? 'character' : 'characters'}
+                    </div>
 
-            <div className="my-10 divide-x-2 divide-cyan-900">
-                <span className="py-2 px-2">
-                    <span className="font-medium text-cyan-400">
-                        {charCount}
-                    </span>{' '}
-                    characters
-                </span>
+                    <div className="mt-12 text-lg">
+                        <span className="text-sky-500 font-display">
+                            {wordCount}
+                        </span>{' '}
+                        {wordCount === 1 ? 'word' : 'words'}
+                    </div>
 
-                <span className="py-2 px-2">
-                    <span className="font-medium text-cyan-400">
-                        {wordCount}
-                    </span>{' '}
-                    words
-                </span>
+                    <div className="mt-12 text-lg">
+                        <span className="text-sky-500 font-display">
+                            {sentenceCount}
+                        </span>{' '}
+                        {sentenceCount === 1 ? 'sentence' : 'sentences'}
+                    </div>
 
-                <span className="py-2 px-2">
-                    <span className="font-medium text-cyan-400">
-                        {sentenceCount}
-                    </span>{' '}
-                    sentences
-                </span>
-
-                <span className="py-2 px-2">
-                    <span className="font-medium text-cyan-400">
-                        {paragraphCount}
-                    </span>{' '}
-                    paragraphs
-                </span>
+                    <div className="mt-12 text-lg">
+                        <span className="text-sky-500 font-display">
+                            {paragraphCount}
+                        </span>{' '}
+                        {paragraphCount === 1 ? 'paragraph' : 'paragraphs'}
+                    </div>
+                </div>
             </div>
 
-            <textarea
-                ref={textarea}
-                className="md:w-3/5 h-[28rem] p-4 transition bg-transparent border-2 border-gray-400 rounded-lg resize-none outline-0 focus:border-cyan-400"
-                onChange={(evt) => handleUserInput(evt)}
-            />
+            <div className="h-screen flex justify-center items-center">
+                <textarea
+                    ref={textarea}
+                    placeholder="Type something..."
+                    onChange={(evt) => handleUserInput(evt)}
+                    className="w-4/5 h-4/5 p-6 bg-transparent resize-none outline-none rounded-lg border-[3px] border-gray-800 focus:border-sky-800 transition selection:bg-sky-500"
+                ></textarea>
+            </div>
         </div>
     )
 }
