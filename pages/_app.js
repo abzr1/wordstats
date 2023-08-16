@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }) {
     return (
         <main>
             <Head>
-                <title>wordstats</title>
+                <title>Wordstats</title>
             </Head>
 
             <Component {...pageProps} />
