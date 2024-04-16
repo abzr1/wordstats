@@ -1,7 +1,3 @@
-<h1 align="center">
-    wordstats
-</h1>
+# wordstats
 
-<p align="center">
-    A website that calculates text stats, built with Next.js.
-</p>
+A website that calculates text stats.
